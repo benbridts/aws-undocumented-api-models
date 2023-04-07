@@ -1,0 +1,133 @@
+{
+    "version":"2.0",
+    "metadata":{
+      "apiVersion":"1970-01-01",
+      "endpointPrefix":"cloudshell",
+      "jsonVersion":"1.1",
+      "protocol":"rest-json",
+      "serviceFullName":"CloudShell",
+      "serviceId":"CloudShell",
+      "signatureVersion":"v4",
+      "signingName":"cloudshell"
+    },
+    "operations":{
+        "CreateEnvironment":{
+            "name":"CreateEnvironment",
+            "http":{
+              "method":"POST",
+              "requestUri":"/createEnvironment"
+            },
+            "input":{"shape":"CreateEnvironmentRequest"},
+            "output":{"shape":"EnvironmentResult"},
+            "errors":[]
+          },
+          "GetEnvironmentStatus": {
+              "name": "GetEnvironmentStatus",
+              "http": {
+                  "method": "POST",
+                  "requestUri": "/getEnvironmentStatus"
+              },
+              "input":{"shape":"GetEnvironmentStatusRequest"},
+            "output":{"shape":"EnvironmentResult"},
+            "errors":[]
+          },
+          "CreateSession": {
+            "name": "CreateSession",
+            "http": {
+                "method": "POST",
+                "requestUri": "/createSession"
+            },
+            "input":{"shape":"CreateSessionRequest"},
+          "output":{"shape":"CreateSessionResult"},
+          "errors":[]
+        },
+        "StartEnvironment": {
+            "name": "StartEnvironment",
+            "http": {
+                "method": "POST",
+                "requestUri": "/startEnvironment"
+            },
+            "input":{"shape":"StartEnvironmentRequest"},
+          "output":{"shape":"EnvironmentResult"},
+          "errors":[]
+        }
+    },
+    "shapes":{
+      "CreateEnvironmentRequest":{
+        "type":"structure",
+        "required":[],
+        "members":{}
+      },
+      "EnvironmentResult":{
+        "type":"structure",
+        "members":{
+          "EnvironmentId":{
+            "shape":"EnvironmentId"
+          },
+          "Status":{
+            "shape":"Status"
+          }
+        }
+      },
+      "GetEnvironmentStatusRequest": {
+        "type":"structure",
+        "required":["EnvironmentId"],
+        "members":{
+            "EnvironmentId": {
+                "shape":"EnvironmentId"
+            }
+        }
+      },
+      "CreateSessionRequest": {
+          "type":"structure",
+          "required":["EnvironmentId"],
+          "members":{
+              "EnvironmentId": {
+                "shape":"EnvironmentId"
+              }
+          }
+      },
+      "CreateSessionResult": {
+          "type":"structure",
+          "members": {
+            "SessionId":{
+                "shape":"SessionId",
+                "documentation":"<p>The ID of the session.</p>"
+              },
+              "TokenValue":{
+                "shape":"TokenValue",
+                "documentation":"<p>An encrypted token value containing session and caller information. Used to authenticate the connection to the instance.</p>"
+              },
+              "StreamUrl":{
+                "shape":"StreamUrl",
+                "documentation":"<p>A URL back to SSM Agent on the instance that the Session Manager client uses to send commands and receive output from the instance. Format: <code>wss://ssmmessages.<b>region</b>.amazonaws.com/v1/data-channel/<b>session-id</b>?stream=(input|output)</code> </p> <p> <b>region</b> represents the Region identifier for an AWS Region supported by AWS Systems Manager, such as <code>us-east-2</code> for the US East (Ohio) Region. For a list of supported <b>region</b> values, see the <b>Region</b> column in <a href=\"http://docs.aws.amazon.com/general/latest/gr/ssm.html#ssm_region\">Systems Manager service endpoints</a> in the <i>AWS General Reference</i>.</p> <p> <b>session-id</b> represents the ID of a Session Manager session, such as <code>1a2b3c4dEXAMPLE</code>.</p>"
+              },
+            "EnvironmentId":{
+                "shape":"EnvironmentId"
+            }
+          }
+      },
+      "StartEnvironmentRequest": {
+        "type":"structure",
+        "required":["EnvironmentId"],
+        "members":{
+            "EnvironmentId": {
+              "shape":"EnvironmentId"
+            }
+        }
+      },
+      "EnvironmentId": {"type": "string"},
+      "Status": {"type": "string"},
+      "SessionId":{
+        "type":"string",
+        "max":96,
+        "min":1
+      },
+      "TokenValue":{
+        "type":"string",
+        "max":300,
+        "min":0
+      },
+      "StreamUrl":{"type":"string"}
+  }
+}
