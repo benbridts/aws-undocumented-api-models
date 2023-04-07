@@ -1,0 +1,3 @@
+[submodule "vendor/aws/aws-toolkit-vscode"]
+	path = vendor/aws/aws-toolkit-vscode
+	url = https://github.com/aws/aws-toolkit-vscode

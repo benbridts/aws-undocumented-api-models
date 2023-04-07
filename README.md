@@ -2,6 +2,8 @@
 Model files for undocumented AWS APIs
 
 # Usage
+After checking out this repo, run `git submodule update` to download the repositories linked in the vendor folder.
+
 Include the models directory in the `AWS_DATA_PATH` ([see the botocore documentation][botocore-loaders]).
 
 After that you will have mulitple services starting with an underscore. All availble services are shown by `aws help`
@@ -10,6 +12,9 @@ After that you will have mulitple services starting with an underscore. All avai
 export AWS_DATA_PATH="${pwd}/models"
 aws help
 ```
+
+# Vendor folder
+Some files are already available in other open source projects. We used git submodules and softlinks to include them. These files might come with their own separate license.
 
 # FAQ
 ## Why are these json files and not smithy models?
