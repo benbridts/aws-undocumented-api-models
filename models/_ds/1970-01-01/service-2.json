@@ -1,0 +1,282 @@
+{
+    "version":"2.0",
+    "metadata":{
+      "apiVersion":"1970-01-01",
+      "endpointPrefix":"ds",
+      "jsonVersion":"1.1",
+      "protocol":"json",
+      "serviceAbbreviation":"Galaxy",
+      "serviceFullName":"Galaxy",
+      "serviceId":"Galaxy",
+      "signatureVersion":"v4",
+      "targetPrefix":"GalaxyService",
+      "uid":"galaxy-1970-01-01"
+    },
+    "operations":{
+      "AuthorizeApplication":{
+        "name":"AuthorizeApplication",
+        "http":{
+          "method":"POST",
+          "requestUri":"/galaxy"
+        },
+        "input":{"shape":"AuthorizeApplicationRequest"},
+        "output":{"shape":"AuthorizeApplicationResult"},
+        "errors":[
+          {"shape": "ApplicationAlreadyAuthorizedException"},
+          {"shape":"ClientException"},
+          {"shape":"ServiceException"}
+        ]
+      },
+      "DescribeRoleEntities":{
+        "name":"DescribeRoleEntities",
+        "http":{
+          "method":"POST",
+          "requestUri":"/galaxy"
+        },
+        "input":{"shape":"DescribeRoleEntitiesRequest"},
+        "output":{"shape":"DescribeRoleEntitiesResult"},
+        "errors":[
+          {"shape":"ClientException"},
+          {"shape":"ServiceException"}
+        ]
+      },
+      "EnableRoleAccess":{
+        "name":"EnableRoleAccess",
+        "http":{
+          "method":"POST",
+          "requestUri":"/galaxy"
+        },
+        "input":{"shape":"EnableRoleAccessRequest"},
+        "output":{"shape":"EnableRoleAccessResult"},
+        "errors":[
+          {"shape":"ClientException"},
+          {"shape":"ServiceException"}
+        ]
+      },
+      "ListAuthorizedApplications":{
+        "name":"ListAuthorizedApplications",
+        "http":{
+          "method":"POST",
+          "requestUri":"/galaxy"
+        },
+        "input":{"shape":"ListAuthorizedApplicationsRequest"},
+        "output":{"shape":"ListAuthorizedApplicationsResult"},
+        "errors":[
+          {"shape":"ClientException"},
+          {"shape":"ServiceException"}
+        ]
+      },
+      "UnauthorizeApplication":{
+        "name":"UnauthorizeApplication",
+        "http":{
+          "method":"POST",
+          "requestUri":"/galaxy"
+        },
+        "input":{"shape":"UnauthorizeApplicationRequest"},
+        "output":{"shape":"UnauthorizeApplicationResult"},
+        "errors":[
+          {"shape": "ApplicationNotAuthorizedException"},
+          {"shape":"ClientException"},
+          {"shape":"ServiceException"}
+        ]
+      }
+    },
+    "shapes":{
+      "AuthorizeApplicationRequest":{
+        "type":"structure",
+        "required":["ApplicationId", "DirectoryId"],
+        "members":{
+          "DirectoryId":{
+            "shape":"DirectoryId"
+          },
+          "ApplicationId":{
+            "shape":"ApplicationId",
+            "documentation": "220900970060 for console access"
+          }
+        }
+      },
+      "AuthorizeApplicationResult":{
+        "type":"structure",
+        "members":{
+          "RequestId":{
+            "shape":"RequestId"
+          }
+        }
+      },
+      "DescribeRoleEntitiesRequest":{
+        "type":"structure",
+        "required":["DirectoryId", "RoleArn", "EntityType"],
+        "members":{
+          "DirectoryId":{"shape":"DirectoryId"},
+          "RoleArn": {"shape": "RoleArn"},
+          "EntityType": {"shape": "EntityType"}
+        }
+      },
+      "DescribeRoleEntitiesResult":{
+        "type":"structure",
+        "members":{
+          "Entities": {"shape": "Entities"},
+          "RequestId":{"shape":"RequestId"}
+        }
+      },
+      "EnableRoleAccessRequest":{
+        "type":"structure",
+        "required":["DirectoryId", "RoleArn", "RoleName"],
+        "members":{
+          "DirectoryId":{
+            "shape":"DirectoryId"
+          },
+          "RoleArn": {"shape": "RoleArn"},
+          "RoleName": {"shape": "RoleName"},
+          "Users": {"shape": "Users"},
+          "UserSids": {"shape": "UserSids"}
+        }
+      },
+      "EnableRoleAccessResult":{
+        "type":"structure",
+        "members":{
+          "RequestId":{
+            "shape":"RequestId"
+          }
+        }
+      },
+      "ListAuthorizedApplicationsRequest":{
+        "type":"structure",
+        "required":["DirectoryId"],
+        "members":{
+          "DirectoryId":{
+            "shape":"DirectoryId"
+          }
+        }
+      },
+      "ListAuthorizedApplicationsResult":{
+        "type":"structure",
+        "members":{
+          "Applications": {
+            "shape": "Applications"
+          },
+          "RequestId":{
+            "shape":"RequestId"
+          }
+        }
+      },
+      "UnauthorizeApplicationRequest":{
+        "type":"structure",
+        "required":["ApplicationId", "DirectoryId"],
+        "members":{
+          "DirectoryId":{
+            "shape":"DirectoryId"
+          },
+          "ApplicationId":{
+            "shape":"ApplicationId",
+            "documentation": "220900970060 for console access?"
+          }
+        }
+      },
+      "UnauthorizeApplicationResult":{
+        "type":"structure",
+        "members":{
+          "RequestId":{
+            "shape":"RequestId"
+          }
+        }
+      },
+      "ApplicationAlreadyAuthorizedException":{
+        "type":"structure",
+        "members":{
+          "Message":{"shape":"ExceptionMessage"},
+          "RequestId":{"shape":"RequestId"}
+        },
+        "exception":true
+      },
+      "ApplicationId":{
+        "type":"string"
+      },
+      "ApplicationName":{
+        "type":"string"
+      },
+      "ApplicationNotAuthorizedException":{
+        "type":"structure",
+        "members":{
+          "Message":{"shape":"ExceptionMessage"},
+          "RequestId":{"shape":"RequestId"}
+        },
+        "exception":true
+      },
+      "Applications": {
+        "type": "list",
+        "member": {"shape": "Application"}
+      },
+      "Application": {
+        "type": "structure",
+        "members": {
+            "ApplicationId": {"shape": "ApplicationId"},
+            "ApplicationName": {"shape": "ApplicationName"}
+        }
+      },
+      "ClientException":{
+        "type":"structure",
+        "members":{
+          "Message":{"shape":"ExceptionMessage"},
+          "RequestId":{"shape":"RequestId"}
+        },
+        "documentation":"<p>A client exception has occurred.</p>",
+        "exception":true
+      },
+      "DirectoryId":{
+        "type":"string",
+        "pattern":"^d-[0-9a-f]{10}$"
+      },
+      "Entities": {
+        "type": "list",
+        "member": {"shape": "Entity"}
+      },
+      "Entity": {
+        "type": "structure",
+        "members": {
+          "EntityType": {"shape": "EntityType"},
+          "Realm": {"shape": "Realm"},
+          "Sid": {"shape": "UserSid"}
+        }
+      },
+      "EntityType": {"type": "string"},
+      "ExceptionMessage":{
+        "type":"string",
+        "documentation":"<p>The descriptive message for the exception.</p>"
+      },
+      "Realm": {"type": "string"},
+      "RequestId":{
+        "type":"string",
+        "documentation":"<p>The Amazon Web Services request identifier.</p>",
+        "pattern":"^([A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12})$"
+      },
+      "RoleArn": {"type": "string"},
+      "RoleName": {"type": "string"},
+      "ServiceException":{
+        "type":"structure",
+        "members":{
+          "Message":{"shape":"ExceptionMessage"},
+          "RequestId":{"shape":"RequestId"}
+        },
+        "documentation":"<p>An exception has occurred in Directory Service.</p>",
+        "exception":true,
+        "fault":true
+      },
+      "User": {
+        "type": "structure",
+        "members": {
+          "Realm": {"shape": "Realm"},
+          "Sid": {"shape": "UserSid"}
+        }
+      },
+      "Users": {
+        "type": "list",
+        "member": {"shape": "User"}
+      },
+      "UserSid": {"type": "string"},
+      "UserSids": {
+        "type": "list",
+        "member": {"shape": "UserSid"}
+      }
+    }
+}
